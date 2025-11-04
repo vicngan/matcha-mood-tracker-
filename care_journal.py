@@ -1,6 +1,12 @@
 import datetime
 
-print("welcome to your care journal!")
+print("""
+────────────────────────────────────────
+      🍵  your care dream journal  ☁️
+    soft day for a gentle little heart
+────────────────────────────────────────
+""")
+
 name = input("your name, lovely:\n> ")
 
 today = datetime.date.today()
@@ -12,6 +18,18 @@ energy = input("how is your energy level (1-10)?\n> ")
 gratitude = input("what is one thing you are grateful for today?\n> ")
 self_care = input("what is one self-care activity you did today?\n> ")
 water = input("how many glasses of water did you drink today?\n> ")
+
+#dream affirmation section
+print("\n taking a moment to affirm your dreams... \n ")
+
+mood = int(mood)
+energy = int(energy)    
+if mood >= 8 and energy >= 8:
+    print("✨ you are radiating positive energy! keep shining bright! ✨\n")        
+elif mood >= 5 and energy >= 5:
+    print("🌸 you are doing well, keep nurturing your dreams! 🌸\n")
+else:
+    print("🌙 it's okay to have off days, rest and recharge for your dreams. 🌙\n")
 
 with open("care_journal_log.txt", "a") as log: 
     log.write(f"{today}, name: {name}, mood: {mood}, energy: {energy}, gratitude: {gratitude}, self-care: {self_care}, water: {water}\n")
