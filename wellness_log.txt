@@ -1,0 +1,1 @@
+2025-11-03, sleep: 4, energy: 5, stress: 6, mood: 6, avergage:4.8

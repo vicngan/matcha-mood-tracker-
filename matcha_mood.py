@@ -1,5 +1,7 @@
+import datetime
 #starting a matcha mood tracker 
-print("hi lovelies, how are you today?")
+today = datetime.date.today()
+print(f"Welcome to your Matcha Mood Tracker for {today}!")  
 
 sleep = int(input("On a scale of 1-10, how well did you sleep last night? "))
 energy = int(input("On a scale of 1-10, how is your energy level? "))
@@ -9,6 +11,10 @@ mood = int(input("On a scale of 1-10, how is your overall   mood? "))
 average = (sleep + energy + (10 - stress) + mood) / 4
 
 print(f"Your matcha mood score for today is: {average:.2f}/10")
+print(f"Welcome to your Matcha Mood Tracker for {today}!")
+with open("wellness_log.txt", "a") as log: 
+    log.write(f"{today}, sleep: {sleep}, energy: {energy}, stress: {stress}, mood: {mood}, avergage:{round(average,1)}\n")
+
 
 if average >= 8:
     print("you're doing well lovely, keep glowing!!")
@@ -21,6 +27,4 @@ else:
     print("you are loved <3")
 
 #end of matcha mood tracker 
-# have a lovely day lovelies! 
-
-
+#have a lovely day lovelies!
