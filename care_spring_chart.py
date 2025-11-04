@@ -18,12 +18,15 @@ with open("care_journal_log.txt", "r") as log:
 
 plt.figure()
 
-plt.plot(date, moods, label="Mood", marker='o')
-plt.plot(date, energies, label="Energy", marker='o')        
+#pink blossome vibes
+plt.plot(date, moods, linewidth=2.5, label="Mood", marker='o', linestyle="-", color="#FFB7C5")
+plt.plot(date, energies, linewidth=2.5, label="Energy", marker='o', linestyle="-", color="#FFCFE2")        
 
-plt.xlabel("your day")
-plt.ylabel("wellness levels (1-10)")
-plt.title("🌈 your mood and wellness bloom chart 🌈")
+#spring aesthetics
+plt.xlabel("your day", fontsize=12)
+plt.ylabel("wellness levels (1-10)", fontsize=12)
+plt.title(" your mood and wellness bloom chart ", fontsize=14)
 
 plt.legend()
+plt.grid(alpha=0.2)
 plt.show()  
