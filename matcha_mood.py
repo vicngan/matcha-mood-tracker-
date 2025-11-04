@@ -1,3 +1,7 @@
+name = input("hi lovelies, what's your name?\n> ")
+print(f"\nhi {name}, welcome back to your matcha mood tracker!\n")
+print("────────────────────────────────────")
+
 import datetime
 #starting a matcha mood tracker 
 today = datetime.date.today()
