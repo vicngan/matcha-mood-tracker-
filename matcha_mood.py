@@ -11,7 +11,6 @@ mood = int(input("On a scale of 1-10, how is your overall   mood? "))
 average = (sleep + energy + (10 - stress) + mood) / 4
 
 print(f"Your matcha mood score for today is: {average:.2f}/10")
-print(f"Welcome to your Matcha Mood Tracker for {today}!")
 with open("wellness_log.txt", "a") as log: 
     log.write(f"{today}, sleep: {sleep}, energy: {energy}, stress: {stress}, mood: {mood}, avergage:{round(average,1)}\n")
 
