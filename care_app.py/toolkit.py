@@ -35,6 +35,14 @@ else:
     print("that's okay lovely, sometimes it's hard to choose. remember, self-care is about doing what feels right for you in the moment. be kind to yourself <3\n")
 print("i'm so proud of you for taking this time for yourself today lovely. remember, self-care is a journey and every step you take is a step towards nurturing yourself <3\n") 
 
+from affirmation import affirmations
+import random
+affirmation = random.choice(affirmations)   
+
+print(f"here's a gentle affirmation for you lovely:\n")
+print(f"✨ {affirmation} ✨\n") 
+print("keep this affirmation close to your heart throughout the day, and remember that you are worthy of love and care just as you are <3\n")   
+
 message = "see you next time lovely <3"
 for char in message:
     print(char, end='', flush=True)
