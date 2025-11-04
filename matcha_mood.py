@@ -12,9 +12,15 @@ print(f"Your matcha mood score for today is: {average:.2f}/10")
 
 if average >= 8:
     print("you're doing well lovely, keep glowing!!")
+    print("i am super proud of you <3")
 elif average >= 5:
     print("you're doing okay, take some time for yourself today.")
+    print("soft steps are still progress <3")
 else:
     print("it's okay to have tough days, grab a matcha and remember to be kind to yourself.") 
+    print("you are loved <3")
 
 #end of matcha mood tracker 
+# have a lovely day lovelies! 
+
+
