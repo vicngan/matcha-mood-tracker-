@@ -18,10 +18,9 @@ A cozy, interactive journaling and self-care app designed to help users reflect,
 ## 💻 Installation
 
 1. Clone the repository:
-```bash
 git clone https://github.com/your-username/your-repo-name.git
 2. Navigate to project folder
-cd your-repo-name
+my-care-journal
 3. Run the app
 python gui_app.py
 
