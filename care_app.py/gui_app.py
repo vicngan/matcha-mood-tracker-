@@ -125,18 +125,42 @@ def run_gui(nickname="lovely"):
     canvas_frame.pack(pady=10)
     canvas.pack()
 
-    entry_text = scrolledtext.ScrolledText(canvas_frame, wrap=tk.WORD, font=("Helvetica", 12), bg=CROQUETTE, fg=TEXT)
-    entry_text.place(x=8, y=8, width=CANVAS_WIDTH-16, height=CANVAS_HEIGHT-16)
+    # journal entry text area
+    entry_text = scrolledtext.ScrolledText(root, 
+        wrap=tk.WORD, 
+        width=60, 
+        height=20, 
+        font=("Helvetica", 12), 
+        bg=CROQUETTE, 
+        fg=TEXT
+    )
+    entry_text.pack(pady=15)
 
-    #buttons
+    def save_entry():
+        text = entry_text.get("1.0", "end-1c")
+        
+        # Save to file / or wherever your code saves currently
+        with open("journal.txt", "a") as file:
+            file.write(text + "\n\n")
+
+        # CUTE MESSAGE POP UP 💞
+        messagebox.showinfo("Saved ✨", "Your entry has been saved, love! 💗🌿🌸")
+
+        # Clear the entry after saving (optional cutie reset moment)
+        entry_text.delete("1.0", "end")
+
+    def clear_entry():
+        entry_text.delete("1.0", tk.END)
+        messagebox.showinfo("Cleared 🌸", "All done! Your journal space is fresh and ready 💗")
+
     control_frame = tk.Frame(root, bg=BG) #control frame
     control_frame.pack(pady=10)
-    save_btn = tk.Button(control_frame, text="Save Entry 💾", command=lambda: append_journal_entry(nickname, entry_text.get("1.0", tk.END)), bg=ACCENT, fg=TEXT, font=("Helvetica", 12, "bold")) #save button
+    save_btn = tk.Button(control_frame, text="Save Entry 💾", command=save_entry, bg=ACCENT, fg=TEXT, font=("Helvetica", 12, "bold")) #save button
     save_btn.pack(side=tk.LEFT, padx=10)
     affirm_btn = tk.Button(control_frame, text="Get Affirmation 🌸", command=lambda 
 : affirmation_message(nickname), bg=PINK, fg=TEXT, font=("Helvetica", 12, "bold")) #affirmation button
     affirm_btn.pack(side=tk.LEFT, padx=10)  
-    clear_btn = tk.Button(control_frame, text="Clear Entry 🧹", command=lambda: entry_text.delete("1.0", tk.END), bg=PINK, fg=TEXT, font=("Helvetica", 12, "bold")) #clear button
+    clear_btn = tk.Button(control_frame, text="Clear Entry 🧹", command=clear_entry, bg=PINK, fg=TEXT, font=("Helvetica", 12, "bold")) #clear button
     clear_btn.pack(side=tk.LEFT, padx=10)
 
     #footer
@@ -145,47 +169,26 @@ def run_gui(nickname="lovely"):
     tk.Label(footer_frame, text="Remember to take care of yourself 💖", font=("Helvetica",14), bg=BG, fg=TEXT).pack()
 
 
-#Threads & stop event
+# Threads
     stop_event = threading.Event()
-#Blossom animation thread
-    blossom_animation_thread = threading.Thread(
-        target=blossom_thread,
-        args=(canvas, stop_event),
-        daemon=True
-    )
-    blossom_animation_thread.start()
-    
-#autosave thread
-    autosave_thread = threading.Thread(
-        target=autosave_loop,
-        args=(nickname, entry_text, stop_event),
-        daemon=True
-    )
-    autosave_thread.start()
+    threading.Thread(target=blossom_thread, args=(canvas, stop_event), daemon=True).start()
+    threading.Thread(target=autosave_loop, args=(nickname, entry_text, stop_event), daemon=True).start()
 
+    # Load draft
     draft_path = DATA_DIR / f"{nickname}_draft.txt"
     if draft_path.exists():
-        try:
-            with draft_path.open("r", encoding="utf-8") as f:
-                entry_text.insert("1.0", f.read())
-        except Exception:
-            pass
+        with draft_path.open("r", encoding="utf-8") as f:
+            entry_text.insert("1.0", f.read())
 
-# Safe close handler
+    # Close handler
     def on_closing():
-        # append final entry to draft (not history) and then optionally append to history
         try:
-            draft_content = entry_text.get("1.0", tk.END)
-            save_draft(nickname, draft_content)
+            save_draft(nickname, entry_text.get("1.0", tk.END))
         except tk.TclError:
             pass
         stop_event.set()
-        # give threads a moment to stop gracefully
         time.sleep(0.15)
-        try:
-            root.destroy()
-        except tk.TclError:
-            pass
+        root.destroy()
 
     root.protocol("WM_DELETE_WINDOW", on_closing)
     root.mainloop()
