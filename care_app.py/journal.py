@@ -1,14 +1,34 @@
 import os,datetime 
 import utils
 import affirmation
+import time
+import sys
+import random
 from utils import append_journal_entry, blossom_drift
 
-import time
-def typeprint(text, speed=0.07):
+def typeprint(text, speed=0.07): #slow print function
         for char in text:
-            print(char, end='', flush=True)
-            time.sleep(speed)
+            print(char, end='', flush=True) #print without newline
+            time.sleep(speed) #delay between chars
         print()
+
+def blossom_drift_vertical(): #vertical drift effect
+    petals = ["🌸", "  🌸", "    🌸", "      🌸"]
+    height = 8
+    for _ in range(8):  # only does a small gentle drift
+        petal = random.choice(petals)  #randomly choose a petal position
+        for i in range(height): #print petal at increasing heights
+            print("\n" * i + petal) #print petal with newlines
+            time.sleep(0.25)
+        print()  #space between drifts
+
+def append_journal_entry(nickname, entry):
+    os.makedirs("journals", exist_ok=True) #create a folder if it doesn't exist
+    filename = f"journals/{nickname} journal_entries.txt" #file path
+
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") #current time
+    with open(filename, "a") as file: #open file in append mode
+        file.write(f"{timestamp}\n{entry}\n\n") #write timestamp and entry
 
 def run (nickname ="angel"):
     typeprint(f"\nhi {nickname}! welcome to your care journal. let's take a moment to reflect on your day and jot down some thoughts.\n")
@@ -20,15 +40,16 @@ def run (nickname ="angel"):
     entry_line = []
     typeprint("\nyou can continue writing your journal entry. when you're done, just press enter on an empty line to finish:\n")
 
-    while True:
+#allows multi-line input until an empty line is entered
+    while True: #looping for multiple lines until tells to stop
         try: 
-              line = input()
-        except KeyboardInterrupt:
+              line = input() #type a line
+        except KeyboardInterrupt: #cntl+c to exit
              print("\ninterrupted. saving your journal entry...\n")
              return
-        if line.strip() == "":
+        if line.strip() == "": #check if user pressed enter on empty line
             break
-        entry_line += line + "\n"
+        entry_line += line + "\n" #adding line to entry with newline
 
     entry = "\n".join(entry_line).strip()
     if entry:
@@ -40,15 +61,11 @@ def run (nickname ="angel"):
         print("\nno worries lovely, journaling is a personal journey and it's okay to take your time. i'm here whenever you're ready <3\n") 
         print("-----------------------------\n")
 
-    blossom_drift()
+    blossom_drift_vertical()
 
     #save entry
-    os.makedirs("journals", exist_ok=True) #create a folder if it doesn't exist
-    filename = f"journals/{nickname} journal_entries.txt"
-
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    with open(filename, "a") as file:
-        file.write(f"{timestamp}\n{entry}\n\n") 
+    append_journal_entry(nickname, entry)
     print("your journal entry has been saved successfully!\n")
     print("-----------------------------\n")
     
@@ -60,11 +77,12 @@ def run (nickname ="angel"):
 
     message = "see you next time lovely <3"
     for char in message:
-        print(char, end='', flush=True)
+        print(char, end='', flush=True) #print without newline
         import time
         time.sleep(0.3)
     print("\n")
     print("────────────────────────────────────────\n")
+
 # optional direct test
 if __name__ == "__main__":
     run()
