@@ -40,13 +40,13 @@ from affirmation import affirmations #importing affirmations list
 import random
 affirmation = random.choice(affirmations)  #randomly choose an affirmation 
 
-print(f"here's a gentle affirmation for you lovely:\n")
+print("here's a gentle affirmation for you lovely:\n")
 print(f"✨ {affirmation} ✨\n") 
 print("keep this affirmation close to your heart throughout the day, and remember that you are worthy of love and care just as you are <3\n")   
 
 message = "see you next time lovely <3"
 for char in message:
-    print(char, end='', flush=True)
+    print(char, end='', flush=True) 
     time.sleep(0.3)
 print("\n")
 

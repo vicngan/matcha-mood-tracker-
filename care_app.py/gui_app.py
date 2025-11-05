@@ -156,7 +156,7 @@ def run_gui(nickname="lovely"):
     control_frame = tk.Frame(root, bg=BG) #control frame
     control_frame.pack(pady=10)
     save_btn = tk.Button(control_frame, text="Save Entry 💾", command=save_entry, bg=ACCENT, fg=TEXT, font=("Helvetica", 12, "bold")) #save button
-    save_btn.pack(side=tk.LEFT, padx=10)
+    save_btn.pack(side=tk.LEFT, padx=10) 
     affirm_btn = tk.Button(control_frame, text="Get Affirmation 🌸", command=lambda 
 : affirmation_message(nickname), bg=PINK, fg=TEXT, font=("Helvetica", 12, "bold")) #affirmation button
     affirm_btn.pack(side=tk.LEFT, padx=10)  
